@@ -32,29 +32,31 @@ class Home extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: CustomColors.background,
+          backgroundColor: CustomColors.primary,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 title,
+                style: TextStyle(
+                  color: Colors.white,
+                )
               ),
               IconButton(
-                icon: const Icon(Icons.more_vert, color: Colors.black),
+                icon: const Icon(Icons.more_vert, color: Colors.white),
                 onPressed: (){
 
                 }
               )
             ]
           ),
-          // elevation: 4.0,
         ),
         body: Column(
           children: [
             Expanded(
               child: Container(
                 width: double.infinity,
-                color: CustomColors.background,
+                color: CustomColors.primary,
                 child: Center(
                   child: Padding(
                     padding: EdgeInsets.all(16.0),
@@ -116,6 +118,30 @@ class Home extends StatelessWidget {
                                 )
                               ),
                             ]
+                          ),
+                          const Text(
+                            '25:00',
+                            style: TextStyle(
+                              fontSize: 72.0,
+                              color: Colors.white,
+                            )
+                          ),
+                          FilledButton(
+                            onPressed: null,
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.white),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0)
+                                )
+                              )
+                            ),
+                            child: const Text('Start', 
+                              style: TextStyle(
+                                // fontSize: 10.0,
+                                color: CustomColors.primary,
+                              )
+                            )
                           )
                         ]
                       )
