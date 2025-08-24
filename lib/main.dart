@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
                       padding: EdgeInsets.all(16.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: CustomColors.p,
+                          color: Colors.white.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(8.0), // Mengatur radius sudut
                         ),
                         width: double.infinity,
@@ -89,7 +89,7 @@ class _HomeState extends State<Home> {
                                     });
                                   },
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                                    backgroundColor: MaterialStateProperty.all(bg == CustomColors.primary ? CustomColors.primary.withOpacity(0.8) : Colors.transparent),
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8.0)
@@ -110,6 +110,7 @@ class _HomeState extends State<Home> {
                                     });
                                   },
                                   style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(bg == CustomColors.secondary ? CustomColors.secondary.withOpacity(0.8) : Colors.transparent),
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8.0)
@@ -124,8 +125,13 @@ class _HomeState extends State<Home> {
                                   )
                                 ),
                                 FilledButton(
-                                  onPressed: null,
+                                  onPressed: (){
+                                    setState((){
+                                      bg = CustomColors.accent;
+                                    });
+                                  },
                                   style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(bg == CustomColors.accent ? CustomColors.accent.withOpacity(0.8) : Colors.transparent),
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8.0)
@@ -158,10 +164,10 @@ class _HomeState extends State<Home> {
                                   )
                                 )
                               ),
-                              child: const Text('Start', 
+                              child: Text('Start', 
                                 style: TextStyle(
                                   // fontSize: 10.0,
-                                  color: CustomColors.primary,
+                                  color: bg,
                                 )
                               )
                             )
