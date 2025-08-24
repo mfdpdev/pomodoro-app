@@ -10,4 +10,8 @@ class CustomColors {
   static const Color primary = Color(0xFFBA4949); // rgb(186, 73, 73)
   static const Color secondary = Color(0xFF38858A); // rgb(56, 133, 138)
   static const Color accent = Color(0xFF397097); // rgb(57, 112, 151)
+
+  static const Color p = Color(0xFFDC6464); // Lebih cerah dari rgb(186, 73, 73)
+  static const Color s = Color(0xFF5AA0A5); // Lebih cerah dari rgb(56, 133, 138)
+  static const Color a = Color(0xFF508CB4); // Lebih cerah dari rgb(57, 112, 151)
 }

@@ -21,11 +21,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
-
+class Home extends StatefulWidget {
   final String title;
 
   const Home({super.key, required this.title});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  Color bg = CustomColors.primary;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +44,7 @@ class Home extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                title,
+                widget.title,
                 style: TextStyle(
                   color: Colors.white,
                 )
@@ -51,109 +58,157 @@ class Home extends StatelessWidget {
             ]
           ),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                color: CustomColors.primary,
+        body: AnimatedContainer(
+          duration: const Duration(milliseconds: 500),
+          color: bg,
+          child:  Column(
+            children: [
+              Expanded(
+                // child: Container(
+                //   width: double.infinity,
+                //   color: bg,
                 child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height / 3,
-                      color: CustomColors.primary,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              FilledButton(
-                                onPressed: null,
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0)
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: CustomColors.p,
+                          borderRadius: BorderRadius.circular(8.0), // Mengatur radius sudut
+                        ),
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height / 3,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                FilledButton(
+                                  onPressed: (){
+                                    setState((){
+                                      bg = CustomColors.primary;
+                                    });
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0)
+                                      )
+                                    )
+                                  ),
+                                  child: const Text('Pomodoro', 
+                                    style: TextStyle(
+                                      fontSize: 10.0,
+                                      color: Colors.white,
                                     )
                                   )
                                 ),
-                                child: const Text('Pomodoro', 
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  )
-                                )
-                              ),
-                              FilledButton(
-                                onPressed: null,
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0)
+                                FilledButton(
+                                  onPressed: (){
+                                    setState((){
+                                      bg = CustomColors.secondary;
+                                    });
+                                  },
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0)
+                                      )
+                                    )
+                                  ),
+                                  child: const Text('Short Break', 
+                                    style: TextStyle(
+                                      fontSize: 10.0,
+                                      color: Colors.white,
                                     )
                                   )
                                 ),
-                                child: const Text('Short Break', 
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  )
-                                )
-                              ),
-                              FilledButton(
-                                onPressed: null,
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0)
+                                FilledButton(
+                                  onPressed: null,
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0)
+                                      )
+                                    )
+                                  ),
+                                  child: const Text('Long Break', 
+                                    style: TextStyle(
+                                      fontSize: 10.0,
+                                      color: Colors.white,
                                     )
                                   )
                                 ),
-                                child: const Text('Long Break', 
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  )
-                                )
-                              ),
-                            ]
-                          ),
-                          const Text(
-                            '25:00',
-                            style: TextStyle(
-                              fontSize: 72.0,
-                              color: Colors.white,
-                            )
-                          ),
-                          FilledButton(
-                            onPressed: null,
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(Colors.white),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0)
-                                )
+                              ]
+                            ),
+                            const Text(
+                              '25:00',
+                              style: TextStyle(
+                                fontSize: 72.0,
+                                color: Colors.white,
                               )
                             ),
-                            child: const Text('Start', 
-                              style: TextStyle(
-                                // fontSize: 10.0,
-                                color: CustomColors.primary,
+                            FilledButton(
+                              onPressed: null,
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.white),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0)
+                                  )
+                                )
+                              ),
+                              child: const Text('Start', 
+                                style: TextStyle(
+                                  // fontSize: 10.0,
+                                  color: CustomColors.primary,
+                                )
                               )
                             )
-                          )
-                        ]
+                          ]
+                        )
                       )
-                    )
-                  ) 
+                    ) 
+                  )
+              ),
+              Container(
+                height: 40,
+                color: CustomColors.primary,
+                child: Center(
+                  child: const Text('Hello world')
                 )
               )
-            ),
-            Text('Test')
-          ]
+            ]
+          )
         ),
       )
     );
   }
 }
+
+// Widget _buildModeButton(String text, Color color) {
+//   bool isActive = _currentBackgroundColor == color;
+//   return FilledButton(
+//     onPressed: () {
+//       setState(() {
+//         _currentBackgroundColor = color;
+//       });
+//     },
+//     style: ButtonStyle(
+//       backgroundColor: MaterialStateProperty.all(isActive ? Colors.white : Colors.transparent),
+//       shape: MaterialStateProperty.all(
+//         RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(8.0),
+//           side: BorderSide(color: Colors.white, width: isActive ? 0 : 1),
+//         ),
+//       ),
+//     ),
+//     child: Text(
+//       text,
+//       style: TextStyle(
+//         fontSize: 10.0,
+//         color: isActive ? color : Colors.white,
+//       ),
+//     ),
+//   );
+// }
