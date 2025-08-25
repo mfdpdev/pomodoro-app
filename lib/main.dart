@@ -70,7 +70,71 @@ class _HomeState extends State<Home> {
                       IconButton(
                         icon: const Icon(Icons.more_vert, color: Colors.white),
                         onPressed: (){
-
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              // Widget yang akan ditampilkan sebagai modal
+                              return AlertDialog(
+                                title: Center(
+                                  child: const Text('SETTING')
+                                ),
+                                content: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      height: 0.5,               // lebar garis
+                                      width: double.infinity,             // tinggi garis
+                                      color: Colors.black,     // warna garis
+                                      margin: EdgeInsets.symmetric(horizontal: 8),
+                                    ),
+                                    const Text('TIMER'),
+                                    const Text('Time (minutes)'),
+                                    Row(
+                                      children: [],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text('Auto Start Breaks')
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text('Auto Start Pomodoros')
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text('Long Break Interval')
+                                      ],
+                                    ),
+                                  ]
+                                ),
+                                actions: <Widget>[
+                                  // Tombol "Batal"
+                                  TextButton(
+                                    child: const Text('Batal'),
+                                    onPressed: () {
+                                      // Perintah untuk menutup modal tanpa melakukan aksi
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  // Tombol "Terapkan"
+                                  TextButton(
+                                    child: const Text('Terapkan'),
+                                    onPressed: () {
+                                      // Aksi yang akan dijalankan saat tombol "Terapkan" diklik
+                                      // Misalnya, menyimpan data ke variabel atau database
+                                      print('Perubahan diterapkan!');
+                                      
+                                      // Tutup modal setelah aksi selesai
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         }
                       )
                     ]
