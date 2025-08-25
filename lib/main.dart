@@ -39,31 +39,44 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: CustomColors.primary,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                widget.title,
-                style: TextStyle(
-                  color: Colors.white,
-                )
-              ),
-              IconButton(
-                icon: const Icon(Icons.more_vert, color: Colors.white),
-                onPressed: (){
-
-                }
-              )
-            ]
-          ),
-        ),
         body: AnimatedContainer(
           duration: const Duration(milliseconds: 500),
           color: bg,
-          child:  Column(
+          child: Column(
             children: [
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: bg, // Warna Container
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3), // Warna bayangan yang samar
+                      blurRadius: 12, // Seberapa buram bayangan
+                    ),
+                  ],
+                ),
+                height: 50,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        widget.title,
+                        style: TextStyle(
+                          color: Colors.white,
+                        )
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.more_vert, color: Colors.white),
+                        onPressed: (){
+
+                        }
+                      )
+                    ]
+                  )
+                )
+              ),
               Expanded(
                 // child: Container(
                 //   width: double.infinity,
