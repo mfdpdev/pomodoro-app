@@ -33,6 +33,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   Color bg = CustomColors.primary;
+  bool isStart = false;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +87,7 @@ class _HomeState extends State<Home> {
                                   onPressed: (){
                                     setState((){
                                       bg = CustomColors.primary;
+                                      isStart = false;
                                     });
                                   },
                                   style: ButtonStyle(
@@ -107,6 +109,7 @@ class _HomeState extends State<Home> {
                                   onPressed: (){
                                     setState((){
                                       bg = CustomColors.secondary;
+                                      isStart = false;
                                     });
                                   },
                                   style: ButtonStyle(
@@ -128,6 +131,7 @@ class _HomeState extends State<Home> {
                                   onPressed: (){
                                     setState((){
                                       bg = CustomColors.accent;
+                                      isStart = false;
                                     });
                                   },
                                   style: ButtonStyle(
@@ -154,22 +158,77 @@ class _HomeState extends State<Home> {
                                 color: Colors.white,
                               )
                             ),
-                            FilledButton(
-                              onPressed: null,
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Colors.white),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                if (isStart)
+                                  FilledButton(
+                                    onPressed: (){
+                                      setState((){
+                                        isStart = false;
+                                      });
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8.0)
+                                        )
+                                      )
+                                    ),
+                                    child: Text('Stop', 
+                                      style: TextStyle(
+                                        // fontSize: 10.0,
+                                        color: bg,
+                                      )
+                                    )
                                   )
-                                )
-                              ),
-                              child: Text('Start', 
-                                style: TextStyle(
-                                  // fontSize: 10.0,
-                                  color: bg,
-                                )
-                              )
+                                else SizedBox.shrink(),
+                                if (!isStart)
+                                  FilledButton(
+                                    onPressed: (){
+                                      setState((){
+                                        isStart = true;
+                                      });
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8.0)
+                                        )
+                                      )
+                                    ),
+                                    child: Text('Start', 
+                                      style: TextStyle(
+                                        // fontSize: 10.0,
+                                        color: bg,
+                                      )
+                                    )
+                                  )
+                                else SizedBox.shrink(),
+                                if (isStart)
+                                  FilledButton(
+                                    onPressed: (){
+
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8.0)
+                                        )
+                                      )
+                                    ),
+                                    child: Text('Pause', 
+                                      style: TextStyle(
+                                        // fontSize: 10.0,
+                                        color: bg,
+                                      )
+                                    )
+                                  )
+                                else SizedBox.shrink(),
+                              ]
                             )
                           ]
                         )
