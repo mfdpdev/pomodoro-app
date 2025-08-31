@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:pomodoro_app/widgets/custom_colors.dart';
+import 'package:pomodoro_app/widgets/default_timer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +37,72 @@ class _HomeState extends State<Home> {
   Color bg = CustomColors.primary;
   bool isStart = false;
 
+  int _defaultTimer = DefaultTimer.pomodoro;
+  int _duration = DefaultTimer.pomodoro;
+  Timer? _timer;
+
+  void _start(){
+    if (isStart) return;
+
+    setState((){
+      _duration--;
+    });
+
+    isStart = true;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer){
+      if (_duration > 0){
+        setState((){
+          _duration--;
+        });
+      }else{
+        _stop();
+      }
+    });
+  }
+
+  void _pause(){
+    if (_timer != null){
+      _timer!.cancel();
+      setState((){
+        isStart = false;
+      });
+    }
+  }
+
+  void _stop(){
+    _timer?.cancel();
+    setState((){
+      _duration = _defaultTimer;
+      isStart = false;
+    });
+  }
+
+  String _formatDuration(int seconds){
+    int minutes = seconds ~/ 60;
+    int remainingSeconds = seconds % 60;
+    String minutesString = minutes.toString().padLeft(2, '0');
+    String secondsString = remainingSeconds.toString().padLeft(2, '0');
+    return '$minutesString:$secondsString';
+  }
+
+  void _changeTimerType(Color newBg, int newDuration){
+    setState((){
+      _defaultTimer = newDuration;
+    });
+    _stop();
+    setState((){
+      bg = newBg;
+      _duration = newDuration;
+      isStart = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,7 +119,7 @@ class _HomeState extends State<Home> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.3), // Warna bayangan yang samar
-                      blurRadius: 12, // Seberapa buram bayangan
+                      blurRadius: 2, // Seberapa buram bayangan
                     ),
                   ],
                 ),
@@ -162,10 +230,7 @@ class _HomeState extends State<Home> {
                               children: [
                                 FilledButton(
                                   onPressed: (){
-                                    setState((){
-                                      bg = CustomColors.primary;
-                                      isStart = false;
-                                    });
+                                    _changeTimerType(CustomColors.primary, DefaultTimer.pomodoro);
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(bg == CustomColors.primary ? CustomColors.primary.withOpacity(0.8) : Colors.transparent),
@@ -184,10 +249,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 FilledButton(
                                   onPressed: (){
-                                    setState((){
-                                      bg = CustomColors.secondary;
-                                      isStart = false;
-                                    });
+                                    _changeTimerType(CustomColors.secondary, DefaultTimer.shortBreak);
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(bg == CustomColors.secondary ? CustomColors.secondary.withOpacity(0.8) : Colors.transparent),
@@ -206,10 +268,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 FilledButton(
                                   onPressed: (){
-                                    setState((){
-                                      bg = CustomColors.accent;
-                                      isStart = false;
-                                    });
+                                    _changeTimerType(CustomColors.accent, DefaultTimer.longBreak);
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(bg == CustomColors.accent ? CustomColors.accent.withOpacity(0.8) : Colors.transparent),
@@ -228,8 +287,8 @@ class _HomeState extends State<Home> {
                                 ),
                               ]
                             ),
-                            const Text(
-                              '25:00',
+                            Text(
+                              _formatDuration(_duration),
                               style: TextStyle(
                                 fontSize: 72.0,
                                 color: Colors.white,
@@ -240,12 +299,7 @@ class _HomeState extends State<Home> {
                               children: [
                                 if (isStart)
                                   FilledButton(
-                                    onPressed: (){
-                                      setState((){
-                                        isStart = false;
-                                      });
-                                    },
-                                    style: ButtonStyle(
+                                    onPressed: _stop,                                    style: ButtonStyle(
                                       backgroundColor: MaterialStateProperty.all(Colors.white),
                                       shape: MaterialStateProperty.all(
                                         RoundedRectangleBorder(
@@ -263,12 +317,7 @@ class _HomeState extends State<Home> {
                                 else SizedBox.shrink(),
                                 if (!isStart)
                                   FilledButton(
-                                    onPressed: (){
-                                      setState((){
-                                        isStart = true;
-                                      });
-                                    },
-                                    style: ButtonStyle(
+                                    onPressed: _start,                                    style: ButtonStyle(
                                       backgroundColor: MaterialStateProperty.all(Colors.white),
                                       shape: MaterialStateProperty.all(
                                         RoundedRectangleBorder(
@@ -286,10 +335,7 @@ class _HomeState extends State<Home> {
                                 else SizedBox.shrink(),
                                 if (isStart)
                                   FilledButton(
-                                    onPressed: (){
-
-                                    },
-                                    style: ButtonStyle(
+                                    onPressed: _pause,                                    style: ButtonStyle(
                                       backgroundColor: MaterialStateProperty.all(Colors.white),
                                       shape: MaterialStateProperty.all(
                                         RoundedRectangleBorder(
