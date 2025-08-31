@@ -41,11 +41,15 @@ class _HomeState extends State<Home> {
   int _duration = DefaultTimer.pomodoro;
   Timer? _timer;
 
+  //progress bar
+  double _progressValue = 1.0;
+
   void _start(){
     if (isStart) return;
 
     setState((){
       _duration--;
+      _progressValue = _duration / _defaultTimer;
     });
 
     isStart = true;
@@ -53,6 +57,7 @@ class _HomeState extends State<Home> {
       if (_duration > 0){
         setState((){
           _duration--;
+          _progressValue = _duration / _defaultTimer;
         });
       }else{
         _stop();
@@ -74,6 +79,7 @@ class _HomeState extends State<Home> {
     setState((){
       _duration = _defaultTimer;
       isStart = false;
+      _progressValue = 1.0;
     });
   }
 
@@ -362,8 +368,13 @@ class _HomeState extends State<Home> {
               Container(
                 height: 40,
                 color: CustomColors.primary,
-                child: Center(
-                  child: const Text('Hello world')
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: LinearProgressIndicator(
+                    value: _progressValue,
+                    backgroundColor: Colors.white.withOpacity(0.3),
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  )
                 )
               )
             ]
