@@ -37,12 +37,32 @@ class _HomeState extends State<Home> {
   Color bg = CustomColors.primary;
   bool isStart = false;
 
-  int _defaultTimer = DefaultTimer.pomodoro;
-  int _duration = DefaultTimer.pomodoro;
+  int _pomodoroDuration = DefaultTimer.pomodoro;
+  int _shortBreakDuration = DefaultTimer.shortBreak;
+  int _longBreakDuration = DefaultTimer.longBreak;
+
+  late int _defaultTimer;
+  late int _duration;
   Timer? _timer;
 
   //progress bar
   double _progressValue = 1.0;
+
+  late final TextEditingController textFieldControllerPomodoro;
+  late final TextEditingController textFieldControllerShortBreak;
+  late final TextEditingController textFieldControllerLongBreak;
+
+  @override
+  void initState(){
+    super.initState();
+    _defaultTimer = _pomodoroDuration;
+    _duration = _defaultTimer;
+
+    textFieldControllerPomodoro = TextEditingController(text: (_pomodoroDuration / 60).toString());
+    textFieldControllerShortBreak = TextEditingController(text: (_shortBreakDuration / 60).toString());
+    textFieldControllerLongBreak = TextEditingController(text: (_longBreakDuration / 60).toString());
+  }
+
 
   void _start(){
     if (isStart) return;
@@ -107,6 +127,40 @@ class _HomeState extends State<Home> {
   void dispose() {
     _timer?.cancel();
     super.dispose();
+    textFieldControllerLongBreak.dispose();
+    textFieldControllerShortBreak.dispose();
+    textFieldControllerPomodoro.dispose();
+  }
+
+  void _applySettings() {
+     // Ambil dan coba konversi nilai dari TextField
+    final pomodoroInput = int.tryParse(textFieldControllerPomodoro.text);
+    final shortBreakInput = int.tryParse(textFieldControllerShortBreak.text);
+    final longBreakInput = int.tryParse(textFieldControllerLongBreak.text);
+
+    // Cek apakah semua nilai valid
+    final bool isPomodoroValid = pomodoroInput != null && pomodoroInput > 0;
+    final bool isShortBreakValid = shortBreakInput != null && shortBreakInput > 0;
+    final bool isLongBreakValid = longBreakInput != null && longBreakInput > 0;
+
+    // Jika semua input valid, eksekusi aksi
+    if (isPomodoroValid && isShortBreakValid && isLongBreakValid) {
+      setState(() {
+        _pomodoroDuration = pomodoroInput;
+        _shortBreakDuration = shortBreakInput;
+        _longBreakDuration = longBreakInput;
+
+
+      });
+
+      // Tutup modal
+    }else{
+      textFieldControllerPomodoro.text = (_pomodoroDuration / 60).toString();
+      textFieldControllerShortBreak.text = (_shortBreakDuration / 60).toString();
+      textFieldControllerLongBreak.text = (_longBreakDuration / 60).toString();
+    }
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -166,12 +220,100 @@ class _HomeState extends State<Home> {
                                     const Text('TIMER'),
                                     const Text('Time (minutes)'),
                                     Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Column(
-                                          children: [
-                                            const Text('Pomodoro'),
-                                          ]
-                                        )
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              const Text('Pomodoro',
+                                                style: TextStyle(
+                                                  fontSize: 10.0,
+                                                  // color: Colors.white,
+                                                )
+                                              ),
+                                              const SizedBox(height: 4),
+                                              TextField(
+                                                controller: textFieldControllerPomodoro,
+                                                keyboardType: TextInputType.number,
+                                                autofocus: false,
+                                                // inputFormatters: [
+                                                //   FilteringTextInputFormatter.digitsOnly,
+                                                // ],
+                                                decoration: const InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  isDense: true,
+                                                  contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                                ),
+                                                // decoration: const InputDecoration(
+                                                //   hintText: 'Enter your task here...',
+                                                //   border: InputBorder.none,
+                                                // ),
+                                              )
+                                            ]
+                                          )
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              const Text('Short Break',
+                                                style: TextStyle(
+                                                  fontSize: 10.0,
+                                                  // color: Colors.white,
+                                                )
+                                              ),
+                                              const SizedBox(height: 4),
+                                              TextField(
+                                                controller: textFieldControllerShortBreak,
+                                                keyboardType: TextInputType.number,
+                                                autofocus: false,
+                                                // inputFormatters: [
+                                                //   FilteringTextInputFormatter.digitsOnly,
+                                                // ],
+                                                decoration: const InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  isDense: true,
+                                                  contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                                ),
+                                                // decoration: const InputDecoration(
+                                                //   hintText: 'Enter your task here...',
+                                                //   border: InputBorder.none,
+                                                // ),
+                                              )
+                                            ]
+                                          )
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              const Text('Long Break', 
+                                                style: TextStyle(
+                                                  fontSize: 10.0,
+                                                  // color: Colors.white,
+                                                )
+                                              ),
+                                              const SizedBox(height: 4),
+                                              TextField(
+                                                controller: textFieldControllerLongBreak,
+                                                keyboardType: TextInputType.number,
+                                                autofocus: false,
+                                                // inputFormatters: [
+                                                //   FilteringTextInputFormatter.digitsOnly,
+                                                // ],
+                                                decoration: const InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  isDense: true,
+                                                  contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                                ),
+                                                // decoration: const InputDecoration(
+                                                //   hintText: 'Enter your task here...',
+                                                //   border: InputBorder.none,
+                                                // ),
+                                              )
+                                            ]
+                                          )
+                                        ),
                                       ],
                                     ),
                                     Row(
@@ -203,14 +345,7 @@ class _HomeState extends State<Home> {
                                   // Tombol "Terapkan"
                                   TextButton(
                                     child: const Text('Terapkan'),
-                                    onPressed: () {
-                                      // Aksi yang akan dijalankan saat tombol "Terapkan" diklik
-                                      // Misalnya, menyimpan data ke variabel atau database
-                                      print('Perubahan diterapkan!');
-                                      
-                                      // Tutup modal setelah aksi selesai
-                                      Navigator.of(context).pop();
-                                    },
+                                    onPressed: _applySettings,
                                   ),
                                 ],
                               );
@@ -243,7 +378,7 @@ class _HomeState extends State<Home> {
                               children: [
                                 FilledButton(
                                   onPressed: (){
-                                    _changeTimerType(CustomColors.primary, DefaultTimer.pomodoro);
+                                    _changeTimerType(CustomColors.primary, _pomodoroDuration);
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(bg == CustomColors.primary ? CustomColors.primary.withOpacity(0.8) : Colors.transparent),
@@ -262,7 +397,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 FilledButton(
                                   onPressed: (){
-                                    _changeTimerType(CustomColors.secondary, DefaultTimer.shortBreak);
+                                    _changeTimerType(CustomColors.secondary, _shortBreakDuration);
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(bg == CustomColors.secondary ? CustomColors.secondary.withOpacity(0.8) : Colors.transparent),
@@ -281,7 +416,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 FilledButton(
                                   onPressed: (){
-                                    _changeTimerType(CustomColors.accent, DefaultTimer.longBreak);
+                                    _changeTimerType(CustomColors.accent, _longBreakDuration);
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(bg == CustomColors.accent ? CustomColors.accent.withOpacity(0.8) : Colors.transparent),
