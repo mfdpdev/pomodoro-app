@@ -139,6 +139,7 @@ class _HomeState extends State<Home> {
                         widget.title,
                         style: TextStyle(
                           color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width * 0.05,
                         )
                       ),
                       IconButton(
@@ -165,7 +166,13 @@ class _HomeState extends State<Home> {
                                     const Text('TIMER'),
                                     const Text('Time (minutes)'),
                                     Row(
-                                      children: [],
+                                      children: [
+                                        Column(
+                                          children: [
+                                            const Text('Pomodoro'),
+                                          ]
+                                        )
+                                      ],
                                     ),
                                     Row(
                                       children: [
@@ -367,13 +374,15 @@ class _HomeState extends State<Home> {
               ),
               Container(
                 height: 40,
-                color: CustomColors.primary,
+                color: bg,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: LinearProgressIndicator(
-                    value: _progressValue,
-                    backgroundColor: Colors.white.withOpacity(0.3),
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  padding: const EdgeInsets.all(12.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: LinearProgressIndicator(
+                      value: _progressValue, backgroundColor: Colors.white.withOpacity(0.3),
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    )
                   )
                 )
               )
