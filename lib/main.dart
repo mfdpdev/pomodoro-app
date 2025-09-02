@@ -58,9 +58,9 @@ class _HomeState extends State<Home> {
     _defaultTimer = _pomodoroDuration;
     _duration = _defaultTimer;
 
-    textFieldControllerPomodoro = TextEditingController(text: (_pomodoroDuration / 60).toString());
-    textFieldControllerShortBreak = TextEditingController(text: (_shortBreakDuration / 60).toString());
-    textFieldControllerLongBreak = TextEditingController(text: (_longBreakDuration / 60).toString());
+    textFieldControllerPomodoro = TextEditingController(text: (_pomodoroDuration ~/ 60).toString());
+    textFieldControllerShortBreak = TextEditingController(text: (_shortBreakDuration ~/ 60).toString());
+    textFieldControllerLongBreak = TextEditingController(text: (_longBreakDuration ~/ 60).toString());
   }
 
 
@@ -144,20 +144,33 @@ class _HomeState extends State<Home> {
     final bool isLongBreakValid = longBreakInput != null && longBreakInput > 0;
 
     // Jika semua input valid, eksekusi aksi
+    print(textFieldControllerPomodoro.text);
+    print(pomodoroInput);
+    print(isPomodoroValid);
     if (isPomodoroValid && isShortBreakValid && isLongBreakValid) {
       setState(() {
-        _pomodoroDuration = pomodoroInput;
-        _shortBreakDuration = shortBreakInput;
-        _longBreakDuration = longBreakInput;
+        _pomodoroDuration = pomodoroInput * 60;
+        _shortBreakDuration = shortBreakInput * 60;
+        _longBreakDuration = longBreakInput * 60;
 
+        if (bg == CustomColors.primary){
+          _duration = _pomodoroDuration;
+          _defaultTimer = _pomodoroDuration;
+        } else if (bg == CustomColors.secondary){
+          _duration = _shortBreakDuration;
+          _defaultTimer = _shortBreakDuration;
+        } else {
+          _duration = _longBreakDuration;
+          _defaultTimer = _longBreakDuration;
+        }
 
       });
 
       // Tutup modal
     }else{
-      textFieldControllerPomodoro.text = (_pomodoroDuration / 60).toString();
-      textFieldControllerShortBreak.text = (_shortBreakDuration / 60).toString();
-      textFieldControllerLongBreak.text = (_longBreakDuration / 60).toString();
+      textFieldControllerPomodoro.text = (_pomodoroDuration ~/ 60).toString();
+      textFieldControllerShortBreak.text = (_shortBreakDuration ~/ 60).toString();
+      textFieldControllerLongBreak.text = (_longBreakDuration ~/ 60).toString();
     }
 
     Navigator.of(context).pop();
