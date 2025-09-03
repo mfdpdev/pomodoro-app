@@ -101,6 +101,7 @@ class _HomeState extends State<Home> {
       isStart = false;
       _progressValue = 1.0;
     });
+
   }
 
   String _formatDuration(int seconds){
@@ -196,7 +197,7 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                height: 50,
+                height: 60,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Row(
@@ -218,7 +219,12 @@ class _HomeState extends State<Home> {
                               // Widget yang akan ditampilkan sebagai modal
                               return AlertDialog(
                                 title: Center(
-                                  child: const Text('SETTING')
+                                  child: const Text('SETTING',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                    )
+                                  )
                                 ),
                                 content: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,15 +234,27 @@ class _HomeState extends State<Home> {
                                       height: 0.5,               // lebar garis
                                       width: double.infinity,             // tinggi garis
                                       color: Colors.black,     // warna garis
-                                      margin: EdgeInsets.symmetric(horizontal: 8),
+                                      margin: EdgeInsets.symmetric(horizontal: 4),
                                     ),
-                                    const Text('TIMER'),
-                                    const Text('Time (minutes)'),
+                                    const SizedBox(height: 10),
+                                    const Text('TIMER',
+                                      // style: TextStyle(
+                                      //   fontWeight: FontWeight.bold,
+                                      // )
+                                    ),
+                                    const SizedBox(height: 5),
+                                    const Text('Time (minutes)',
+                                      // style: TextStyle(
+                                      //   fontWeight: FontWeight.bold,
+                                      // )
+                                    ),
+                                    const SizedBox(height: 3),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Expanded(
                                           child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               const Text('Pomodoro',
                                                 style: TextStyle(
@@ -252,11 +270,17 @@ class _HomeState extends State<Home> {
                                                 // inputFormatters: [
                                                 //   FilteringTextInputFormatter.digitsOnly,
                                                 // ],
-                                                decoration: const InputDecoration(
+                                                decoration: InputDecoration(
                                                   border: OutlineInputBorder(),
                                                   isDense: true,
                                                   contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: bg,
+                                                    )
+                                                  )
                                                 ),
+                                                cursorColor: bg,
                                                 // decoration: const InputDecoration(
                                                 //   hintText: 'Enter your task here...',
                                                 //   border: InputBorder.none,
@@ -268,6 +292,7 @@ class _HomeState extends State<Home> {
                                         const SizedBox(width: 8),
                                         Expanded(
                                           child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               const Text('Short Break',
                                                 style: TextStyle(
@@ -283,11 +308,17 @@ class _HomeState extends State<Home> {
                                                 // inputFormatters: [
                                                 //   FilteringTextInputFormatter.digitsOnly,
                                                 // ],
-                                                decoration: const InputDecoration(
+                                                decoration: InputDecoration(
                                                   border: OutlineInputBorder(),
                                                   isDense: true,
                                                   contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: bg,
+                                                    )
+                                                  )
                                                 ),
+                                                cursorColor: bg,
                                                 // decoration: const InputDecoration(
                                                 //   hintText: 'Enter your task here...',
                                                 //   border: InputBorder.none,
@@ -299,6 +330,7 @@ class _HomeState extends State<Home> {
                                         const SizedBox(width: 8),
                                         Expanded(
                                           child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               const Text('Long Break', 
                                                 style: TextStyle(
@@ -314,11 +346,17 @@ class _HomeState extends State<Home> {
                                                 // inputFormatters: [
                                                 //   FilteringTextInputFormatter.digitsOnly,
                                                 // ],
-                                                decoration: const InputDecoration(
+                                                decoration: InputDecoration(
                                                   border: OutlineInputBorder(),
                                                   isDense: true,
                                                   contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: bg,
+                                                    )
+                                                  )
                                                 ),
+                                                cursorColor: bg,
                                                 // decoration: const InputDecoration(
                                                 //   hintText: 'Enter your task here...',
                                                 //   border: InputBorder.none,
@@ -329,19 +367,34 @@ class _HomeState extends State<Home> {
                                         ),
                                       ],
                                     ),
+                                    const SizedBox(height: 15),
                                     Row(
                                       children: [
-                                        const Text('Auto Start Breaks')
+                                        const Text('Auto Start Breaks',
+                                          // style: TextStyle(
+                                          //   fontWeight: FontWeight.bold,
+                                          // )
+                                        )
                                       ],
                                     ),
+                                    const SizedBox(height: 5),
                                     Row(
                                       children: [
-                                        const Text('Auto Start Pomodoros')
+                                        const Text('Auto Start Pomodoros',
+                                          // style: TextStyle(
+                                          //   fontWeight: FontWeight.bold,
+                                          // )
+                                        )
                                       ],
                                     ),
+                                    const SizedBox(height: 5),
                                     Row(
                                       children: [
-                                        const Text('Long Break Interval')
+                                        const Text('Long Break Interval',
+                                          // style: TextStyle(
+                                          //   fontWeight: FontWeight.bold,
+                                          // )
+                                        )
                                       ],
                                     ),
                                   ]
@@ -350,6 +403,9 @@ class _HomeState extends State<Home> {
                                   // Tombol "Batal"
                                   TextButton(
                                     child: const Text('Batal'),
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: bg, // Mengubah warna teks tombol OK
+                                    ),
                                     onPressed: () {
                                       // Perintah untuk menutup modal tanpa melakukan aksi
                                       Navigator.of(context).pop();
@@ -358,6 +414,9 @@ class _HomeState extends State<Home> {
                                   // Tombol "Terapkan"
                                   TextButton(
                                     child: const Text('Terapkan'),
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: bg, // Mengubah warna teks tombol OK
+                                    ),
                                     onPressed: _applySettings,
                                   ),
                                 ],
@@ -374,8 +433,10 @@ class _HomeState extends State<Home> {
                 // child: Container(
                 //   width: double.infinity,
                 //   color: bg,
-                child: Center(
-                    child: Padding(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Container(
                         decoration: BoxDecoration(
@@ -399,11 +460,14 @@ class _HomeState extends State<Home> {
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8.0)
                                       )
+                                    ),
+                                    padding: MaterialStateProperty.all(
+                                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)
                                     )
                                   ),
                                   child: const Text('Pomodoro', 
                                     style: TextStyle(
-                                      fontSize: 10.0,
+                                      fontSize: 12.0,
                                       color: Colors.white,
                                     )
                                   )
@@ -418,11 +482,14 @@ class _HomeState extends State<Home> {
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8.0)
                                       )
+                                    ),
+                                    padding: MaterialStateProperty.all(
+                                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)
                                     )
                                   ),
                                   child: const Text('Short Break', 
                                     style: TextStyle(
-                                      fontSize: 10.0,
+                                      fontSize: 12.0,
                                       color: Colors.white,
                                     )
                                   )
@@ -437,11 +504,14 @@ class _HomeState extends State<Home> {
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8.0)
                                       )
+                                    ),
+                                    padding: MaterialStateProperty.all(
+                                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)
                                     )
                                   ),
                                   child: const Text('Long Break', 
                                     style: TextStyle(
-                                      fontSize: 10.0,
+                                      fontSize: 12.0,
                                       color: Colors.white,
                                     )
                                   )
@@ -517,23 +587,24 @@ class _HomeState extends State<Home> {
                           ]
                         )
                       )
-                    ) 
-                  )
-              ),
-              Container(
-                height: 40,
-                color: bg,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: LinearProgressIndicator(
-                      value: _progressValue, backgroundColor: Colors.white.withOpacity(0.3),
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                    Container(
+                      height: 40,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: LinearProgressIndicator(
+                            value: _progressValue, backgroundColor: Colors.white.withOpacity(0.3),
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          )
+                        )
+                      )
                     )
-                  )
+                  ]
                 )
               )
+
             ]
           )
         ),
