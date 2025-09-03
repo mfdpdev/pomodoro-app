@@ -436,157 +436,168 @@ class _HomeState extends State<Home> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(8.0), // Mengatur radius sudut
-                        ),
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height / 3,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                FilledButton(
-                                  onPressed: (){
-                                    _changeTimerType(CustomColors.primary, _pomodoroDuration);
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(bg == CustomColors.primary ? CustomColors.primary.withOpacity(0.8) : Colors.transparent),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.0)
-                                      )
-                                    ),
-                                    padding: MaterialStateProperty.all(
-                                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)
-                                    )
-                                  ),
-                                  child: const Text('Pomodoro', 
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Colors.white,
-                                    )
-                                  )
-                                ),
-                                FilledButton(
-                                  onPressed: (){
-                                    _changeTimerType(CustomColors.secondary, _shortBreakDuration);
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(bg == CustomColors.secondary ? CustomColors.secondary.withOpacity(0.8) : Colors.transparent),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.0)
-                                      )
-                                    ),
-                                    padding: MaterialStateProperty.all(
-                                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)
-                                    )
-                                  ),
-                                  child: const Text('Short Break', 
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Colors.white,
-                                    )
-                                  )
-                                ),
-                                FilledButton(
-                                  onPressed: (){
-                                    _changeTimerType(CustomColors.accent, _longBreakDuration);
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(bg == CustomColors.accent ? CustomColors.accent.withOpacity(0.8) : Colors.transparent),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.0)
-                                      )
-                                    ),
-                                    padding: MaterialStateProperty.all(
-                                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)
-                                    )
-                                  ),
-                                  child: const Text('Long Break', 
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Colors.white,
-                                    )
-                                  )
-                                ),
-                              ]
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(8.0), // Mengatur radius sudut
                             ),
-                            Text(
-                              _formatDuration(_duration),
-                              style: TextStyle(
-                                fontSize: 72.0,
-                                color: Colors.white,
-                              )
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height / 3,
+                            child: Column(
                               children: [
-                                if (isStart)
-                                  FilledButton(
-                                    onPressed: _stop,                                    style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8.0)
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    FilledButton(
+                                      onPressed: (){
+                                        _changeTimerType(CustomColors.primary, _pomodoroDuration);
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all(bg == CustomColors.primary ? CustomColors.primary.withOpacity(0.8) : Colors.transparent),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8.0)
+                                          )
+                                        ),
+                                        padding: MaterialStateProperty.all(
+                                          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)
+                                        )
+                                      ),
+                                      child: const Text('Pomodoro', 
+                                        style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
                                         )
                                       )
                                     ),
-                                    child: Text('Stop', 
-                                      style: TextStyle(
-                                        // fontSize: 10.0,
-                                        color: bg,
-                                      )
-                                    )
-                                  )
-                                else SizedBox.shrink(),
-                                if (!isStart)
-                                  FilledButton(
-                                    onPressed: _start,                                    style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8.0)
+                                    FilledButton(
+                                      onPressed: (){
+                                        _changeTimerType(CustomColors.secondary, _shortBreakDuration);
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all(bg == CustomColors.secondary ? CustomColors.secondary.withOpacity(0.8) : Colors.transparent),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8.0)
+                                          )
+                                        ),
+                                        padding: MaterialStateProperty.all(
+                                          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)
+                                        )
+                                      ),
+                                      child: const Text('Short Break', 
+                                        style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
                                         )
                                       )
                                     ),
-                                    child: Text('Start', 
-                                      style: TextStyle(
-                                        // fontSize: 10.0,
-                                        color: bg,
-                                      )
-                                    )
-                                  )
-                                else SizedBox.shrink(),
-                                if (isStart)
-                                  FilledButton(
-                                    onPressed: _pause,                                    style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8.0)
+                                    FilledButton(
+                                      onPressed: (){
+                                        _changeTimerType(CustomColors.accent, _longBreakDuration);
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all(bg == CustomColors.accent ? CustomColors.accent.withOpacity(0.8) : Colors.transparent),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8.0)
+                                          )
+                                        ),
+                                        padding: MaterialStateProperty.all(
+                                          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)
+                                        )
+                                      ),
+                                      child: const Text('Long Break', 
+                                        style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
                                         )
                                       )
                                     ),
-                                    child: Text('Pause', 
-                                      style: TextStyle(
-                                        // fontSize: 10.0,
-                                        color: bg,
-                                      )
-                                    )
+                                  ]
+                                ),
+                                Text(
+                                  _formatDuration(_duration),
+                                  style: TextStyle(
+                                    fontSize: 72.0,
+                                    color: Colors.white,
                                   )
-                                else SizedBox.shrink(),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    if (isStart)
+                                      FilledButton(
+                                        onPressed: _stop,                                    style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all(Colors.white),
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(8.0)
+                                            )
+                                          )
+                                        ),
+                                        child: Text('Stop', 
+                                          style: TextStyle(
+                                            // fontSize: 10.0,
+                                            color: bg,
+                                          )
+                                        )
+                                      )
+                                    else SizedBox.shrink(),
+                                    if (!isStart)
+                                      FilledButton(
+                                        onPressed: _start,                                    style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all(Colors.white),
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(8.0)
+                                            )
+                                          )
+                                        ),
+                                        child: Text('Start', 
+                                          style: TextStyle(
+                                            // fontSize: 10.0,
+                                            color: bg,
+                                          )
+                                        )
+                                      )
+                                    else SizedBox.shrink(),
+                                    if (isStart)
+                                      FilledButton(
+                                        onPressed: _pause,                                    style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all(Colors.white),
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(8.0)
+                                            )
+                                          )
+                                        ),
+                                        child: Text('Pause', 
+                                          style: TextStyle(
+                                            // fontSize: 10.0,
+                                            color: bg,
+                                          )
+                                        )
+                                      )
+                                    else SizedBox.shrink(),
+                                  ]
+                                )
                               ]
                             )
-                          ]
+                          )
+                        ),
+                        const SizedBox(height: 10),
+                        Text(bg == CustomColors.primary ? "Time to focus!" : "Time for a break!",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          )
                         )
-                      )
+                      ]
                     ),
                     Container(
                       height: 40,
