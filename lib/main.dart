@@ -5,8 +5,23 @@ import 'package:pomodoro_app/widgets/custom_colors.dart';
 import 'package:pomodoro_app/widgets/default_timer.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-void main() {
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Inisialisasi pengaturan platform
+  const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher'); // Ganti 'app_icon' dengan nama ikon Anda
+  final iosSettings = DarwinInitializationSettings();
+
+  final InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+    iOS: iosSettings
+  );
+  
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
   runApp(const MyApp());
 }
 
@@ -20,6 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Pomodoro App',
       theme: ThemeData(
       ),
@@ -208,6 +224,7 @@ class _HomeState extends State<Home> {
         });
       }else{
         _stop();
+        _showNotification();
       }
     });
   }
@@ -229,6 +246,34 @@ class _HomeState extends State<Home> {
       _progressValue = 1.0;
     });
 
+  }
+
+  Future<void> _showNotification() async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'timer_channel_id', // ID unik
+      'Timer Notifications', // Nama channel
+      channelDescription: 'Channel for timer end notifications',
+      importance: Importance.max,
+      priority: Priority.high,
+      ticker: 'ticker',
+    );
+
+    const iosDetails = DarwinNotificationDetails();
+    
+    const NotificationDetails platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      iOS: iosDetails
+    );
+    
+    // Menampilkan notifikasi
+    await flutterLocalNotificationsPlugin.show(
+      0, // ID notifikasi unik
+      'Waktu Selesai!',
+      'Timer Anda telah berakhir.',
+      platformChannelSpecifics,
+      payload: 'timer_ended',
+    );
   }
 
   String _formatDuration(int seconds){
