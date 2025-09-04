@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro_app/widgets/custom_colors.dart';
 import 'package:pomodoro_app/widgets/default_timer.dart';
 
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
+  final bool onboardingSeen = false;
+
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -18,7 +23,129 @@ class MyApp extends StatelessWidget {
       title: 'Pomodoro App',
       theme: ThemeData(
       ),
-      home: const Home(title: 'Pomodoro'),
+      home: onboardingSeen ? Home(title: 'Pomodoro') : OnboardingScreen(),
+    );
+  }
+}
+
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen>{
+
+  final PageController _controller = PageController();
+  bool isLastPage = false;
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: Stack(
+        children: [
+          PageView(
+            controller: _controller,
+            onPageChanged: (index){
+              setState((){
+                isLastPage = (index == 2);
+              });
+            },
+            children: [
+               IntroPage(
+                title: 'Selamat Datang!',
+                description: 'Aplikasi ini akan mempermudah hidup Anda.',
+                // imagePath: 'assets/images/intro1.png',
+              ),
+              IntroPage(
+                title: 'Temukan Fitur Baru',
+                description: 'Jelajahi berbagai fitur keren yang kami sediakan.',
+                // imagePath: 'assets/images/intro2.png',
+              ),
+              IntroPage(
+                title: 'Siap Memulai?',
+                description: 'Mari kita mulai perjalanan ini bersama!',
+                // imagePath: 'assets/images/intro3.png',
+              ),
+            ]
+          ),
+          Container(
+            alignment: const Alignment(0.0, 0.8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: (){
+                    // _controller.jumpToPage(2);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const Home(title: 'Pomodoro'),
+                      )
+                    );
+                  },
+                  child: const Text('Lewati')
+                ),
+
+                SmoothPageIndicator(
+                  controller: _controller,
+                  count: 3,
+                  effect: const WormEffect(
+                    activeDotColor: Colors.blue,
+                    dotColor: Colors.grey,
+                  ),
+                ),
+
+                isLastPage ? GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const Home(title: 'Pomodoro'),
+                      )
+                    );
+                  },
+                  child: const Text('Selesai')
+                ) : GestureDetector(
+                  onTap: (){
+                    _controller.nextPage(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeIn,
+                    );
+                  },
+                  child: const Text('Lanjutkan')
+                )
+              ]
+            )
+          )  
+        ]
+      )
+    );
+  }
+}
+
+class IntroPage extends StatelessWidget {
+  final String title;
+  final String description;
+  // final String imagePath;
+  
+  const IntroPage({
+    super.key,
+    required this.title,
+    required this.description,
+    // required this.imagePath,
+  });
+
+  @override
+  Widget build(BuildContext context){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // Image.asset(imagePath, height: 200),
+        const SizedBox(height: 20),
+        Text(title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 10),
+        Text(description, textAlign: TextAlign.center),
+      ]
     );
   }
 }
