@@ -70,18 +70,18 @@ class _OnboardingScreenState extends State<OnboardingScreen>{
             },
             children: [
                IntroPage(
-                title: 'Selamat Datang!',
-                description: 'Aplikasi ini akan mempermudah hidup Anda.',
+                title: 'Welcome to FocusFlow',
+                description: 'Boost your productivity using the proven Pomodoro Technique. Stay focused, take, breaks, and get more done.',
                 // imagePath: 'assets/images/intro1.png',
               ),
               IntroPage(
-                title: 'Temukan Fitur Baru',
-                description: 'Jelajahi berbagai fitur keren yang kami sediakan.',
+                title: 'Work Smarter, Not Harder',
+                description: 'Break your tasks into 25-minute focus sessions with short breaks in between. Say goodbye to burnout and distractions.',
                 // imagePath: 'assets/images/intro2.png',
               ),
               IntroPage(
-                title: 'Siap Memulai?',
-                description: 'Mari kita mulai perjalanan ini bersama!',
+                title: 'Track Your Progress',
+                description: 'Monitor your work sessions, set daily goals, and build better habits over time.',
                 // imagePath: 'assets/images/intro3.png',
               ),
             ]
@@ -100,7 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>{
                       )
                     );
                   },
-                  child: const Text('Lewati')
+                  child: const Text('Skip')
                 ),
 
                 SmoothPageIndicator(
@@ -120,7 +120,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>{
                       )
                     );
                   },
-                  child: const Text('Selesai')
+                  child: const Text('Done')
                 ) : GestureDetector(
                   onTap: (){
                     _controller.nextPage(
@@ -128,7 +128,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>{
                       curve: Curves.easeIn,
                     );
                   },
-                  child: const Text('Lanjutkan')
+                  child: const Text('Next')
                 )
               ]
             )
