@@ -177,6 +177,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  int pomodoroCounter = 0;
+
   Color bg = CustomColors.primary;
   bool isStart = false;
 
@@ -225,6 +227,29 @@ class _HomeState extends State<Home> {
       }else{
         _stop();
         _showNotification();
+
+        if(pomodoroCounter <= 3){
+          if(bg == CustomColors.primary){
+            pomodoroCounter++;
+
+            if(pomodoroCounter > 3){
+              _changeTimerType(CustomColors.accent, _longBreakDuration);
+            }else{
+              //ke short break
+              _changeTimerType(CustomColors.secondary, _shortBreakDuration);
+            }
+          }else{
+            //ke pomodoro
+            _changeTimerType(CustomColors.primary, _pomodoroDuration);
+          }
+        }else{
+          if(bg != CustomColors.primary){
+            pomodoroCounter = 0;
+            //ke pomodoro
+            _changeTimerType(CustomColors.primary, _pomodoroDuration);
+          }
+
+        }
       }
     });
   }
